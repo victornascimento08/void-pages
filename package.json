@@ -1,0 +1,12 @@
+{
+  "name": "void-pages",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/bot/index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.21.0"
+  }
+}
