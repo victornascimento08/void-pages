@@ -6,19 +6,30 @@ import {
   Routes,
   SlashCommandBuilder
 } from "discord.js";
+import http from "http";
 
 const TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 
 if (!TOKEN) {
-  console.error("ERRO: a variável DISCORD_TOKEN não foi configurada.");
+  console.error("ERRO: DISCORD_TOKEN não configurado.");
   process.exit(1);
 }
 
 if (!CLIENT_ID) {
-  console.error("ERRO: a variável CLIENT_ID não foi configurada.");
+  console.error("ERRO: CLIENT_ID não configurado.");
   process.exit(1);
 }
+
+// Servidor HTTP necessário para o Render
+const port = process.env.PORT || 10000;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("VOID ONLINE");
+}).listen(port, "0.0.0.0", () => {
+  console.log(`Servidor HTTP ativo na porta ${port}`);
+});
 
 const commands = [
   new SlashCommandBuilder()
@@ -40,7 +51,7 @@ try {
     { body: commands }
   );
 
-  console.log("Comandos registrados com sucesso.");
+  console.log("Comandos registrados.");
 } catch (error) {
   console.error("Erro ao registrar comandos:", error);
 }
